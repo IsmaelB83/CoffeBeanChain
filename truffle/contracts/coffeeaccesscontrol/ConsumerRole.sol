@@ -26,7 +26,7 @@ contract ConsumerRole {
 
     // Define a modifier that checks to see if msg.sender has the appropriate role
     modifier onlyConsumer() {
-        require(isConsumer(msg.sender), "Sender is not a valid customer");
+        require(isConsumer(msg.sender), "Sender is not a valid consumer");
         _;
     }
 

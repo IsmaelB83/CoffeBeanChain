@@ -4,9 +4,9 @@
   "description": "Truffle project with SimpleStorage contract",
   "main": "truffle-config.js",
   "dependencies": {
-    "@truffle/hdwallet-provider": "^2.0.10"
+    "@truffle/hdwallet-provider": "^2.0.10",
+    "truffle-assertions": "^0.9.2"
   },
-  "devDependencies": {},
   "scripts": {
     "ganache": "ganache-cli -m 'shit supply shark amount et item harsh afraid congress destroy talent rat'",
     "test": "truffle test"

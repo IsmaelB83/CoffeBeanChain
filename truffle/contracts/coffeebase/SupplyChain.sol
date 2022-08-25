@@ -144,7 +144,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
         // Only can harvest an item that is not harvest already
         require(items[_upc].upc == 0, "The UPC provided is already harvested");
         // Add the new item as part of Harvest
-        items[_upc] = Item(0, _upc, msg.sender, _originFarmerID, _originFarmName, _originFarmInformation, _originFarmLatitude, _originFarmLongitude, _upc + sku, _productNotes, 0, State.Harvested, address(0), address(0), address(0));
+        items[_upc] = Item(1, _upc, msg.sender, _originFarmerID, _originFarmName, _originFarmInformation, _originFarmLatitude, _originFarmLongitude, _upc + sku, _productNotes, 0, State.Harvested, address(0), address(0), address(0));
         // Increment sku
         sku = sku + 1;
         // Emit the appropriate event
@@ -181,7 +181,6 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
     // and any excess ether sent is refunded back to the buyer
     function buyItem(uint _upc) public payable onlyDistributor forSale(_upc) paidEnough(items[_upc].productPrice) checkValue(_upc) {
         // Transfer money to farmer
-        payable(items[_upc].originFarmerID).transfer(items[_upc].productPrice);
         (bool sent, ) = payable(items[_upc].originFarmerID).call{value: msg.value}("");
         require(sent, "Failed to send Ether");
         // If it goes well update the appropriate fields - ownerID, distributorID, itemState
@@ -224,7 +223,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
     }
 
     // Define a function 'fetchItemBufferOne' that fetches the data
-    function fetchItemBuffer(uint _upc) public view returns (
+    function fetchItemBufferOne(uint _upc) public view returns (
         uint itemSKU,
         uint itemUPC,
         address ownerID,
