@@ -8,19 +8,19 @@ The application allows to simulate a simple supply chain related to the coffe be
 
 ![alt text](./documentation/CoffeBean_SC_BusinessProcess.png)
 
-See the UML diagrams here: [UML Files](##UML)
+See the UML diagrams here: [UML Files](##-UML)
 
 This DApp is alredy deployed on the rinkeby network:
 - Smart Contract Address: 0xPENDING  (https://rinkeby.etherscan.io/address/0xPENDING)
 - Transactions already registered:
-    Harvest: https://rinkeby.etherscan.io/tx/0xPENDING
-    Process: https://rinkeby.etherscan.io/tx/0xPENDING
-    Pack: https://rinkeby.etherscan.io/tx/0xPENDING
-    PutForSale: https://rinkeby.etherscan.io/tx/0xPENDING
-    Sold: https://rinkeby.etherscan.io/tx/0xPENDING
-    Ship: https://rinkeby.etherscan.io/tx/0xPENDING
-    Receive: https://rinkeby.etherscan.io/tx/0xPENDING
-    Purchase: https://rinkeby.etherscan.io/tx/0xPENDING     
+    - Harvest: https://rinkeby.etherscan.io/tx/0xPENDING
+    - Process: https://rinkeby.etherscan.io/tx/0xPENDING
+    - Pack: https://rinkeby.etherscan.io/tx/0xPENDING
+    - PutForSale: https://rinkeby.etherscan.io/tx/0xPENDING
+    - Sold: https://rinkeby.etherscan.io/tx/0xPENDING
+    - Ship: https://rinkeby.etherscan.io/tx/0xPENDING
+    - Receive: https://rinkeby.etherscan.io/tx/0xPENDING
+    - Purchase: https://rinkeby.etherscan.io/tx/0xPENDING     
     
 ## DEPENDENCIES
 
@@ -45,15 +45,19 @@ The dependencies identified in package.json are:
 ## UML
 
 - Activity UML:
+
 ![Activity UML](./documentation/CoffeBean_SC_ActivityUML.png)
 
 - Sequence UML:
+
 ![Sequence UML](./documentation/CoffeBean_SC_SequenceUML.png)
 
 - State UML:
+
 ![State UML](./documentation/CoffeBean_SC_StateUML.png)
 
 - Class UML:
+
 ![Class UML](./documentation/CoffeBean_SC_ClassUML.png)
 
 ## DEPLOYMENT
