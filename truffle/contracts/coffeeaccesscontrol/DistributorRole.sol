@@ -21,7 +21,7 @@ contract DistributorRole {
 
     /// @dev Constructor of the contract. The address that deploys this contract is the 1st distributor
     constructor() {
-        _distributors.add(msg.sender);
+        _addDistributor(msg.sender);
     }
 
     // Define a modifier that checks to see if msg.sender has the appropriate role

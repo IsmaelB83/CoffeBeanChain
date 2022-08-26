@@ -21,7 +21,7 @@ contract ConsumerRole {
 
     /// @dev Constructor of the contract. The address that deploys this contract is the 1st consumer
     constructor() {
-        _consumers.add(msg.sender);
+        _addConsumer(msg.sender);
     }
 
     // Define a modifier that checks to see if msg.sender has the appropriate role

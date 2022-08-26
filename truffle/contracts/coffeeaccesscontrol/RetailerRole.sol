@@ -8,16 +8,16 @@ import "./Roles.sol";
 contract RetailerRole {
     using Roles for Roles.Role;
     
-    /// @dev Define a struct 'farmers' by inheriting from 'Roles' library, struct Role
+    /// @dev Define a struct 'retailer' by inheriting from 'Roles' library, struct Role
     Roles.Role private _retailers;
 
     /// @dev Event for Adding
-    /// @param farmers Address of the farmers added to the contract
-    event RetailerAdded (address farmers);
+    /// @param retailer Address of the retailer added to the contract
+    event RetailerAdded (address retailer);
 
     /// @dev Event for Removing
-    /// @param farmers Address of the farmers removed from the contract
-    event RetailerRemoved (address farmers); 
+    /// @param retailer Address of the retailer removed from the contract
+    event RetailerRemoved (address retailer); 
 
     // In the constructor make the address that deploys this contract the 1st farmer
     constructor() {
