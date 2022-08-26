@@ -16,7 +16,7 @@ contract('SupplyChain', accounts => {
     const originFarmLongitude = "144.341490"
     var productID = sku + upc
     const productNotes = "Best beans for Espresso"
-    const productPrice = web3.utils.toWei("25", "ether");
+    const productPrice = web3.utils.toWei("1", "ether");
     var itemState = 0
     const distributorID = accounts[2]
     const retailerID = accounts[3]
@@ -75,21 +75,22 @@ contract('SupplyChain', accounts => {
         truffleAssert.eventEmitted(tx4, 'ConsumerAdded');
         // Check roles are properly assigned
         assert.equal(await supplyChain.isFarmer(originFarmerID), true);
+        assert.equal(await supplyChain.isDistributor(distributorID), true);
+        assert.equal(await supplyChain.isRetailer(retailerID), true);
+        assert.equal(await supplyChain.isConsumer(consumerID), true);
+        // Check roles are not assigned incorrectlyno more roles are assigned
         assert.equal(await supplyChain.isFarmer(distributorID), false);
         assert.equal(await supplyChain.isFarmer(retailerID), false);
         assert.equal(await supplyChain.isFarmer(consumerID), false);
         assert.equal(await supplyChain.isDistributor(originFarmerID), false);
-        assert.equal(await supplyChain.isDistributor(distributorID), true);
         assert.equal(await supplyChain.isDistributor(retailerID), false);
         assert.equal(await supplyChain.isDistributor(consumerID), false);
         assert.equal(await supplyChain.isRetailer(originFarmerID), false);
         assert.equal(await supplyChain.isRetailer(distributorID), false);
-        assert.equal(await supplyChain.isRetailer(retailerID), true);
         assert.equal(await supplyChain.isRetailer(consumerID), false);
         assert.equal(await supplyChain.isConsumer(originFarmerID), false);
         assert.equal(await supplyChain.isConsumer(distributorID), false);
         assert.equal(await supplyChain.isConsumer(retailerID), false);
-        assert.equal(await supplyChain.isConsumer(consumerID), true);
     })
 
     // 1st Test - HARVEST
@@ -121,7 +122,12 @@ contract('SupplyChain', accounts => {
         // Mark an item as Processed by calling function processtItem()
         const tx = await supplyChain.processItem(upc, {from: originFarmerID});
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
+        const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
+        const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)        
         // Verify the result set
+        assert.equal(resultBufferOne[2], originFarmerID, 'Error: owner should be farmer at this stage')
+        assert.equal(resultBufferOne[3], originFarmerID, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferTwo[5], 1, 'Error: state is incorrect for this stage')
         // Watch the emitted event Processed()
         truffleAssert.eventEmitted(tx, 'Processed');
     })    
@@ -136,6 +142,9 @@ contract('SupplyChain', accounts => {
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
         // Verify the result set
+        assert.equal(resultBufferOne[2], originFarmerID, 'Error: owner should be farmer at this stage')
+        assert.equal(resultBufferOne[3], originFarmerID, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferTwo[5], 2, 'Error: state is incorrect for this stage')
         // Watch the emitted event Packed()
         truffleAssert.eventEmitted(tx, 'Packed');
     })    
@@ -149,7 +158,11 @@ contract('SupplyChain', accounts => {
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
+        assert.equal(resultBufferTwo[4], productPrice, 'Error: price of the item is incorrect')
         // Verify the result set
+        assert.equal(resultBufferOne[2], originFarmerID, 'Error: owner should be farmer at this stage')
+        assert.equal(resultBufferOne[3], originFarmerID, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferTwo[5], 3, 'Error: state is incorrect for this stage')
         // Watch the emitted event ForSale()
         truffleAssert.eventEmitted(tx, 'ForSale');
     })    
@@ -159,11 +172,17 @@ contract('SupplyChain', accounts => {
         // Smart contract deployed for testing
         const supplyChain = await SupplyChain.deployed()
         // Mark an item as Sold by calling function buyItem()
+        const oldFarmerBalance = await web3.eth.getBalance(originFarmerID)
         const tx = await supplyChain.buyItem(upc, {from: distributorID, value: productPrice});
+        const newFarmerBalance = await web3.eth.getBalance(originFarmerID)
+        assert.equal(parseInt(oldFarmerBalance) + parseInt(productPrice), parseInt(newFarmerBalance), "Farmer is not prperly paid by the sale")
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
         // Verify the result set
+        assert.equal(resultBufferOne[2], distributorID, 'Error: owner should be distributor at this stage')
+        assert.equal(resultBufferTwo[6], distributorID, 'Error: distributor id should be distributor id at this stage')
+        assert.equal(resultBufferTwo[5], 4, 'Error: state is incorrect for this stage')
         // Watch the emitted event Sold()
         truffleAssert.eventEmitted(tx, 'Sold');
     })    
@@ -178,6 +197,9 @@ contract('SupplyChain', accounts => {
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
         // Verify the result set
+        assert.equal(resultBufferOne[2], distributorID, 'Error: owner should be distributor at this stage')
+        assert.equal(resultBufferTwo[6], distributorID, 'Error: distributor id should be distributor id at this stage')
+        assert.equal(resultBufferTwo[5], 5, 'Error: state is incorrect for this stage')
         // Watch the emitted event Shipped()
         truffleAssert.eventEmitted(tx, 'Shipped');
     })    
@@ -192,9 +214,12 @@ contract('SupplyChain', accounts => {
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
         // Verify the result set
+        assert.equal(resultBufferOne[2], retailerID, 'Error: owner should be retailer at this stage')
+        assert.equal(resultBufferTwo[7], retailerID, 'Error: retailer id should be retailer id at this stage')
+        assert.equal(resultBufferTwo[5], 6, 'Error: state is incorrect for this stage')
         // Watch the emitted event Received()
         truffleAssert.eventEmitted(tx, 'Received');
-    })    
+    })
 
     // 8th Test - PURCHASE (CONSUMER)
     it("Testing smart contract function purchaseItem() that allows a consumer to purchase coffee", async() => {
@@ -206,8 +231,10 @@ contract('SupplyChain', accounts => {
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
         // Verify the result set
+        assert.equal(resultBufferOne[2], consumerID, 'Error: owner should be consumer at this stage')
+        assert.equal(resultBufferTwo[8], consumerID, 'Error: consumer id should be consumer id at this stage')
+        assert.equal(resultBufferTwo[5], 7, 'Error: state is incorrect for this stage')
         // Watch the emitted event Purchased()
         truffleAssert.eventEmitted(tx, 'Purchased');
     })
 });
-

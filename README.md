@@ -32,6 +32,7 @@ This project has been implemented with following versions of truffle and solidit
 The dependencies identified in package.json are:
 - "dotenv": "^16.0.1"                       (to handle .env files for the Infura configuration)
 - "truffle-hdwallet-provider": "^1.0.17"    (to deploy contracts into the Rinkeby network via Infura)
+- "truffle-assertions": "^0.9.2"            (to check for smart contract events emitted in tests)
 
 ## Frontend (web)
 - "react": "^18.1.0",
