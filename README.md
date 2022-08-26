@@ -8,20 +8,31 @@ The application allows to simulate a simple supply chain related to the coffe be
 
 ![alt text](./documentation/CoffeBean_SC_BusinessProcess.png)
 
-See the UML diagrams here: [UML Files](##-UML)
+See the **UML diagrams** here: [UML Files](##-UML)
 
-This DApp is alredy deployed on the rinkeby network:
-- Smart Contract Address: 0xPENDING  (https://rinkeby.etherscan.io/address/0xPENDING)
+This DApp is alredy **deployed on the rinkeby network**:
+- **Account owner**: https://rinkeby.etherscan.io/address/0x91f8A34a3De20f8E5A6BD42f0D0d1278B3693836
+- Smart Contract Deployments:
+    - Migrations: https://rinkeby.etherscan.io/address/0x25E9e9BF0fDA0AAD0BB0A15265A4a9d13C751658
+    - **FarmerRole**: https://rinkeby.etherscan.io/address/0x38ad00AFd649313f96caA321867A16daf57adcCA
+    - **DistributorRole**: https://rinkeby.etherscan.io/address/0xE6cdD6B729159DdC0A5B067caDC3a98781D9A2BF
+    - **RetailerRole**: https://rinkeby.etherscan.io/address/0xB002cA7e14f3723578d277272577a34C5Fb06d00
+    - **ConsumerRole**: https://rinkeby.etherscan.io/address/0xdc1efeCC8A40260ee8A2b1Ca2dc154e84886B060
+    - **SupplyChain**: https://rinkeby.etherscan.io/address/0xB8e7E41A7003aC9FC27D81bF671f2A3b75550A13
+
+- Total cost of deployment: 0.04485526 ETH
+
 - Transactions already registered:
-    - Harvest: https://rinkeby.etherscan.io/tx/0xPENDING
-    - Process: https://rinkeby.etherscan.io/tx/0xPENDING
-    - Pack: https://rinkeby.etherscan.io/tx/0xPENDING
-    - PutForSale: https://rinkeby.etherscan.io/tx/0xPENDING
-    - Sold: https://rinkeby.etherscan.io/tx/0xPENDING
-    - Ship: https://rinkeby.etherscan.io/tx/0xPENDING
-    - Receive: https://rinkeby.etherscan.io/tx/0xPENDING
-    - Purchase: https://rinkeby.etherscan.io/tx/0xPENDING     
-    
+    - Harvest: https://rinkeby.etherscan.io/tx/
+    - Process: https://rinkeby.etherscan.io/tx/
+    - Pack: https://rinkeby.etherscan.io/tx/
+    - AddItem: https://rinkeby.etherscan.io/tx/
+    - PutForSale: https://rinkeby.etherscan.io/tx/
+    - Sold: https://rinkeby.etherscan.io/tx/
+    - Ship: https://rinkeby.etherscan.io/tx/
+    - Receive: https://rinkeby.etherscan.io/tx/
+    - Purchase: https://rinkeby.etherscan.io/tx/     
+
 ## DEPENDENCIES
 
 ## Backend (smart contract):

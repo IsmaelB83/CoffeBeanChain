@@ -167,6 +167,14 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
         emit Packed(_upc);
     }
 
+    // Define a function 'addItem' that allows a farmer to add stock to a 'PackedItem' that has NOT already being sent
+    function addItem(uint _upc, uint _units) public onlyFarmer packed(_upc){
+        // Update the stock of this package
+        items[_upc].sku += _units;
+        // Emit the appropriate event
+        emit Packed(_upc);
+    }
+
     // Define a function 'putForSale' that allows a farmer to mark an item 'ForSale'
     function putForSale(uint _upc, uint _price) public onlyFarmer packed(_upc){
         // Update the appropriate fields

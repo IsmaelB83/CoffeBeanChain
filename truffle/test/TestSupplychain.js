@@ -149,7 +149,21 @@ contract('SupplyChain', accounts => {
         truffleAssert.eventEmitted(tx, 'Packed');
     })    
 
-    // 4th Test - PUT FOR SALE
+    // 4th Test - ADD ITEM
+    it("Testing smart contract function addItem() that allows a farmer to add stock to an already packed item (while it's till not shipped)", async() => {
+        // Smart contract deployed for testing
+        const supplyChain = await SupplyChain.deployed()
+        // Mark an item as Packed by calling function packItem()
+        const tx = await supplyChain.addItem(upc, 100);
+        // Retrieve the just now saved item from blockchain by calling function fetchItem()
+        const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
+        // Verify the result set
+        assert.equal(parseInt(resultBufferTwo[0]), 101, 'Error: state is incorrect for this stage')
+        // Watch the emitted event Packed()
+        truffleAssert.eventEmitted(tx, 'Packed');
+    })    
+    
+    // 5th Test - PUT FOR SALE
     it("Testing smart contract function putForSale() that allows a farmer to sell coffee", async() => {
         // Smart contract deployed for testing
         const supplyChain = await SupplyChain.deployed()
@@ -167,7 +181,7 @@ contract('SupplyChain', accounts => {
         truffleAssert.eventEmitted(tx, 'ForSale');
     })    
 
-    // 5th Test - BUY ITEM (DISTRIBUTOR)
+    // 6th Test - BUY ITEM (DISTRIBUTOR)
     it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async() => {
         // Smart contract deployed for testing
         const supplyChain = await SupplyChain.deployed()
@@ -187,7 +201,7 @@ contract('SupplyChain', accounts => {
         truffleAssert.eventEmitted(tx, 'Sold');
     })    
 
-    // 6th Test - SHIP ITEM
+    // 7th Test - SHIP ITEM
     it("Testing smart contract function shipItem() that allows a distributor to ship coffee", async() => {
         // Smart contract deployed for testing
         const supplyChain = await SupplyChain.deployed()
@@ -204,7 +218,7 @@ contract('SupplyChain', accounts => {
         truffleAssert.eventEmitted(tx, 'Shipped');
     })    
 
-    // 7th Test - RECEIVE ITEM
+    // 8th Test - RECEIVE ITEM
     it("Testing smart contract function receiveItem() that allows a retailer to mark coffee received", async() => {
         // Smart contract deployed for testing
         const supplyChain = await SupplyChain.deployed()
@@ -221,7 +235,7 @@ contract('SupplyChain', accounts => {
         truffleAssert.eventEmitted(tx, 'Received');
     })
 
-    // 8th Test - PURCHASE (CONSUMER)
+    // 9th Test - PURCHASE (CONSUMER)
     it("Testing smart contract function purchaseItem() that allows a consumer to purchase coffee", async() => {
         // Smart contract deployed for testing
         const supplyChain = await SupplyChain.deployed()
