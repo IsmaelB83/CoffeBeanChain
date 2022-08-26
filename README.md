@@ -13,14 +13,14 @@ See the **UML diagrams** here: [UML Files](##-UML)
 This DApp is alredy **deployed on the rinkeby network**:
 - **Account owner**: https://rinkeby.etherscan.io/address/0x91f8A34a3De20f8E5A6BD42f0D0d1278B3693836
 - Smart Contract Deployments:
-    - Migrations: https://rinkeby.etherscan.io/address/0x25E9e9BF0fDA0AAD0BB0A15265A4a9d13C751658
-    - **FarmerRole**: https://rinkeby.etherscan.io/address/0x38ad00AFd649313f96caA321867A16daf57adcCA
-    - **DistributorRole**: https://rinkeby.etherscan.io/address/0xE6cdD6B729159DdC0A5B067caDC3a98781D9A2BF
-    - **RetailerRole**: https://rinkeby.etherscan.io/address/0xB002cA7e14f3723578d277272577a34C5Fb06d00
-    - **ConsumerRole**: https://rinkeby.etherscan.io/address/0xdc1efeCC8A40260ee8A2b1Ca2dc154e84886B060
-    - **SupplyChain**: https://rinkeby.etherscan.io/address/0xB8e7E41A7003aC9FC27D81bF671f2A3b75550A13
+    - Migrations: https://rinkeby.etherscan.io/address/0x3156cf6C980a1a2ca5d3481F79516AaEAE2f97D7
+    - **FarmerRole**: https://rinkeby.etherscan.io/address/0xFaD3c411910592d5a2aB9403E45405efEE4FAc32
+    - **DistributorRole**: https://rinkeby.etherscan.io/address/0xF966D8b09c43417c2d5988bBE6A522acaF3bf26A
+    - **RetailerRole**: https://rinkeby.etherscan.io/address/0xA5bD0994A37d96970Ce9e1Ec4519dDCB9c5B7D28
+    - **ConsumerRole**: https://rinkeby.etherscan.io/address/0xacEa7B4A8Cd9c35c93307c4BD83e99CCe473A394
+    - **SupplyChain**: https://rinkeby.etherscan.io/address/0x54Fb0500325447163dcb3F17550aD1e2D01CB0a1
 
-- Total cost of deployment: 0.04485526 ETH
+- Total cost of deployment: 0.04772206 ETH
 
 - Transactions already registered:
     - Harvest: https://rinkeby.etherscan.io/tx/
