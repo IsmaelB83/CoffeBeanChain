@@ -23,6 +23,17 @@ import purchaseOffImg from '../../static/purchase_off.png'
 // Styles
 import "./SupplyChain.css";
 
+// Constants
+const steps = [
+    { step: 0, name: 'Harvest (Farmer)', onImage: harvestOnImg, offImage: harvestOffImg},
+    { step: 1, name: 'Process (Farmer)', onImage: processOnImg, offImage: processOffImg},
+    { step: 2, name: 'Pack (Farmer)', onImage: packOnImg, offImage: packOffImg},
+    { step: 3, name: 'Put on Sale (Farmer)', onImage: forsaleOnImg, offImage: forsaleOffImg},
+    { step: 4, name: 'Buy (distributor)', onImage: buyOnImg, offImage: buyOffImg},
+    { step: 5, name: 'Ship (Distributor)', onImage: shipOnImg, offImage: shipOffImg},
+    { step: 6, name: 'Receive (Retailer)', onImage: receiveOnImg, offImage: receiveOffImg},
+    { step: 7, name: 'Purchase (Consumer)', onImage: purchaseOnImg, offImage: purchaseOffImg},
+]
 
 /**
  * Farmer information either from an existing product or to harvest a new one
@@ -34,59 +45,30 @@ function SupplyChain(props) {
     const { state } = props;
 
     return (
-        <div className={`mt-5 ${!state?'d-none':''}`}>
+        <div className={`SupplyChain mt-5 ${!state?'d-none':''}`}>
             <MDBRow>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>0?harvestOnImg:harvestOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Harvest (Farmer)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>1?processOnImg:processOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Process (Farmer)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>2?packOnImg:packOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Pack (Farmer)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>3?forsaleOnImg:forsaleOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Put off Sale (Farmer)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>4?buyOnImg:buyOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Buy (distributor)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>5?shipOnImg:shipOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Ship (Distributor)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>6?receiveOnImg:receiveOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Receive (Retailer)</figcaption>
-                    </figure>
-                </MDBCol>
-                <MDBCol>
-                    <figure className='figure'>
-                        <img src={state>7?purchaseOnImg:purchaseOffImg} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
-                        <figcaption className='figure-caption text-center'>Purchase (Consumer)</figcaption>
-                    </figure>
-                </MDBCol>
+                {
+                    steps.map((action,i) => {
+                        return (<SuplyChainStep state={state} step={action.step} onImage={action.onImage} offImage={action.offImage} name={action.name}/>)
+                    })
+                }
             </MDBRow>
         </div>
     );
+}
+
+const SuplyChainStep = props => {
+
+    const { state, step, onImage, offImage, name } = props;
+
+    return (
+        <MDBCol>
+            <figure className={`figure ${state>=step?'step-active':''}`}>
+                <img src={state>=step?onImage:offImage} className='img-fluid shadow-4 imgFarmer rounded-pill' alt=""/>
+                <figcaption className='figure-caption text-center'>{name}</figcaption>
+            </figure>
+        </MDBCol>
+    )
 }
 
 export default SupplyChain;

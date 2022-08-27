@@ -1,4 +1,8 @@
-.SupplyChain img {
-    height: 125px;
-    width: 100px;
+.SupplyChain .step-active img {
+    border: 2px solid green;
 }
+
+.SupplyChain .step-active figcaption {
+    color: green;
+}
+
