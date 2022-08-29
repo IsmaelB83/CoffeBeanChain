@@ -1,4 +1,5 @@
 // Node modules
+import { useState, useEffect } from 'react';
 // Own imports
 // Components
 // MDB Components
@@ -6,7 +7,7 @@ import { MDBTypography, MDBInput, MDBRow, MDBCol, MDBBtnGroup, MDBBtn } from 'md
 // Statics
 import farmerImg from '../../static/farmer.png'
 // Styles
-import "./FarmRole.css";
+import './FarmRole.css';
 
 
 /**
@@ -14,48 +15,91 @@ import "./FarmRole.css";
  * @returns Render the component
  */
 function FarmRole(props) {
+    
+    // Farm information form
+    const [farmForm, setFarmForm] = useState({
+        id: '',
+        name: '',
+        info: '',
+        latitude: 0,
+        longitude: 0
+    });
+    const onChangeFarmForm = e => setFarmForm({ ...farmForm, [e.target.name]: e.target.value });
 
-    // Props destructuring
-    const { farmId, farmName, farmInformation, farmLatitude, farmLongitude } = props.farm;
-    const { notes, upc, price, sku } = props.product;
+    // Product information form
+    const [productForm, setProductForm] = useState({
+        ownerId: '',
+        notes: '',
+        upc: 0,
+        price: 0,
+        sku: 0
+    });
+    const onChangeProductForm = e => setProductForm({ ...productForm, [e.target.name]: e.target.value });
+
+    // Reload props
+    useEffect(() => {
+        setFarmForm({
+            id: props.farmId,
+            name: props.farmName,
+            info: props.farmInfo,
+            latitude: props.farmLatitude,
+            longitude: props.farmLongitude
+        });
+        setProductForm ({
+            ownerId: props.ownerId,
+            notes: props.productNotes,
+            upc: props.productUpc,
+            price: props.productPrice,
+            sku: props.productSku
+        })
+    }, [props])
+
+    // Methods
+    const { onHarvest, onProcess, onPack, onAddItem, onPutForSale } = props;
+
+    const harvest = () => onHarvest(productForm.upc, farmForm.name, farmForm.info, farmForm.latitude, farmForm.longitude, productForm.notes) 
+    const process = () => onProcess(productForm.upc)
+    const pack = () => onPack(productForm.upc)
+    const addItem = () => onAddItem(productForm.upc, productForm.sku)
+    const putForSale = () => onPutForSale(productForm.upc, productForm.price)
 
     return (
-        <div className="mt-5">
+        <div className='mt-5'>
             <MDBTypography tag='div' className='display-6 mb-2'>
                 Farm and Coffe information
             </MDBTypography>
             <MDBRow>
                 <div className='mb-4'>
-                    <img src={farmerImg} className='img-fluid shadow-4 imgFarmer' alt=""/>
+                    <img src={farmerImg} className='img-fluid shadow-4 imgFarmer' alt=''/>
                 </div>
             </MDBRow>
             <MDBRow>
                 <MDBCol>
                     <form>
-                        <MDBInput className='mb-4' id='farmId' disabled label='Farmer ID' value={farmId}/>
-                        <MDBInput className='mb-4' id='farmName' label='Farm Name' value={farmName}/>
-                        <MDBInput className='mb-4' id='farmInformation' label='Farm Information' value={farmInformation}/>
-                        <MDBInput className='mb-4' id='farmLatitude' label='Farm Latitude' value={farmLatitude}/>
-                        <MDBInput className='mb-4' id='farmLongitude' label='Farm Longitude' value={farmLongitude}/>
+                        <MDBInput className='mb-4' type='text' name='id' disabled label='Farmer ID' value={farmForm.id} onChange={onChangeFarmForm}/>
+                        <MDBInput className='mb-4' type='text' name='name' label='Farm Name' value={farmForm.name} onChange={onChangeFarmForm}/>
+                        <MDBInput className='mb-4' type='text' name='info' label='Farm Information' value={farmForm.info} onChange={onChangeFarmForm}/>
+                        <MDBInput className='mb-4' type='number' name='latitude' label='Farm Latitude' value={farmForm.latitude} onChange={onChangeFarmForm}/>
+                        <MDBInput className='mb-4' type='number'name='longitude' label='Farm Longitude' value={farmForm.longitude} onChange={onChangeFarmForm}/>
                     </form>
                 </MDBCol>
                 <MDBCol>
                     <form>
-                        <MDBInput className='mb-4' id='productOwnerId' disabled label='Product Owner ID' value={price}/>
-                        <MDBInput className='mb-4' id='productNotes' label='Product notes' value={notes}/>
-                        <MDBInput className='mb-4' id='productUpc' type="number" label='Unified Product Code (UPC)' value={upc}/>
-                        <MDBInput className='mb-4' id='productSku' type="number" label='Stock keeping unit (SKU)' value={sku}/>
-                        <MDBInput className='mb-4' id='productPrice' type="number" label='Price' value={price}/>
+                        <MDBInput className='mb-4' type='text' name='ownerId' disabled label='Product Owner ID' value={productForm.ownerId} onChange={onChangeProductForm}/>
+                        <MDBInput className='mb-4' type='text' name='notes' label='Product notes' value={productForm.notes} onChange={onChangeProductForm}/>
+                        <MDBInput className='mb-4' type='number' name='upc' label='Unified Product Code (UPC)' value={productForm.upc} onChange={onChangeProductForm}/>
+                        <MDBInput className='mb-4' type='number' name='sku' label='Stock keeping unit (SKU)' value={productForm.sku} onChange={onChangeProductForm}/>
+                        <MDBInput className='mb-4' type='number' name='price' label='Price' value={productForm.price} onChange={onChangeProductForm}/>
                     </form>
                 </MDBCol>
             </MDBRow>
             <MDBRow>
-                <MDBBtnGroup shadow="0" aria-label='Farm Actions'>
-                    <MDBBtn rounded>Harvest</MDBBtn>
-                    <MDBBtn rounded>Process </MDBBtn>
-                    <MDBBtn rounded>Pack</MDBBtn>
-                    <MDBBtn rounded>Add Item</MDBBtn>
-                    <MDBBtn rounded>Put on Sale</MDBBtn>
+                <MDBBtnGroup shadow='0' aria-label='Farm Actions'>
+                    <MDBBtn rounded onClick={harvest}>Harvest</MDBBtn>
+                    <MDBBtn rounded onClick={process}>Process </MDBBtn>
+                    <MDBBtn rounded onClick={pack}>Pack</MDBBtn>
+                    <MDBBtn rounded onClick={addItem}>Add Item</MDBBtn>
+                    <MDBBtn rounded onClick={putForSale}>Put on Sale</MDBBtn>
                 </MDBBtnGroup>
             </MDBRow>
         </div>

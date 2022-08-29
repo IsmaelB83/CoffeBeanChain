@@ -10,14 +10,6 @@ import consumerImg from '../../static/consumer.png'
 // Styles
 import "./OtherRoles.css";
 
-
-// Constants
-const actors = [
-    { id:'', balance: 0, description: 'Distributor', image: distributorImg, actions: ['Buy', 'Ship']},
-    { id:'', balance: 0, description: 'Retailer', image: retailerImg, actions: ['Receive']},
-    { id:'', balance: 0, description: 'Consumer', image: consumerImg, actions: ['Purchase']}
-];
-
 /**
  * Farmer information either from an existing product or to harvest a new one
  * @returns Render the component
@@ -25,16 +17,11 @@ const actors = [
 function OtherRoles(props) {
 
     // Props destructuring
-    const { distributorID, distributorBalance } = props.distributor;
-    const { retailerID, retailerBalance } = props.retailer;
-    const { consumerID, consumerBalance } = props.consumer;
-
-    actors[0].id = distributorID;
-    actors[0].balance = distributorBalance;
-    actors[1].id = retailerID;
-    actors[1].balance = retailerBalance;
-    actors[1].id = consumerID;
-    actors[1].balance = consumerBalance;
+    const actors = [
+        { id: props.distributorId, description: 'Distributor', image: distributorImg, actions: ['Buy', 'Ship']},
+        { id: props.retailerId, description: 'Retailer', image: retailerImg, actions: ['Receive']},
+        { id: props.consumerId, description: 'Consumer', image: consumerImg, actions: ['Purchase']}
+    ];
 
     return (
         <div className="mt-5">
@@ -44,7 +31,7 @@ function OtherRoles(props) {
             <MDBRow>
                 {
                     actors.map((actor, i) => {
-                        return <Role key={i} image={actor.image} description={actor.description} id={actor.id} balance={actor.balance} actions={actor.actions} />
+                        return <Role key={i} image={actor.image} description={actor.description} id={actor.id} actions={actor.actions} />
                     })
                 }
             </MDBRow>
@@ -68,8 +55,7 @@ const Role = (props) => {
             <MDBRow>
                 <form>
                     <MDBInput className='mb-4' id={`${props.description}AccountID`} disabled label='Account ID' value={props.id}/>
-                    <MDBInput className='mb-4' id={`${props.description}BalanceID`} disabled type='number' label='Balance ETH' value={props.balance}/>
-                    <MDBInput className='mb-4' id={`${props.description}Payment`} type='number' disabled label=''/>
+                    <MDBInput className='mb-4' id={`${props.description}Payment`} type='number' label={`${props.description==='Distributor'?'Payment ETH':''}`} disabled/>
                 </form>
             </MDBRow>
             <MDBRow>

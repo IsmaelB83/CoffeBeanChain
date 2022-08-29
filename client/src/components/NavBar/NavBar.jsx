@@ -1,5 +1,6 @@
 // Node modules
 // Own imports
+import { networkIdText } from '../../utils/index';
 // Components
 // MDB Components
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBInputGroup, MDBBtn, MDBNavbarLink } from 'mdb-react-ui-kit';
@@ -8,7 +9,6 @@ import logo from "../../static/logo.png";
 // Styles
 import "./NavBar.css";
 
-import { useEth } from "../../context";
 
 /**
  * Application navbar component
@@ -17,25 +17,28 @@ import { useEth } from "../../context";
 function NavBar(props) {
 
     // Props destructuring
-    const network = props.network || 'not connected';
-    const account = props.account || '0x0000000000000000000000000000000000000000000000000000000000000000';
+    const { network, account } = props;
+    const { onConnect } = props;
+
+    // Auxiliary
+    const auxNetwork = network?networkIdText(network):'not connected';
+    const auxAccount = account?account:`0x${"0".repeat(64)}`;
     
-    console.log(useEth())
     return (
         <MDBNavbar light bgColor='light' fixed='top'>
             <MDBContainer>
                 <MDBNavbarBrand href='#'>
                     <img src={logo} height='30' alt='' loading='lazy' /> CoffeBean Supply Chain 
                 </MDBNavbarBrand>
-                <MDBInputGroup tag="form" className='d-flex w-auto'>
+                <MDBInputGroup className='d-flex w-auto'>
                     <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
-                        {network}
+                        {auxNetwork}
                     </MDBNavbarLink>
-                    <MDBBtn className='mx-2' color='danger'>
+                    <MDBBtn className='mx-2' color='danger' onClick={onConnect}>
                         Connect Metamask
                     </MDBBtn>
                     <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
-                        {`${account.substring(0,5)}...${account.substring(account.length-4)}`}
+                        {`${auxAccount.substring(0,5)}...${auxAccount.substring(auxAccount.length-4)}`}
                     </MDBNavbarLink>
                 </MDBInputGroup>
             </MDBContainer>

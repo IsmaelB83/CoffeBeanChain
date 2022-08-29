@@ -2,7 +2,8 @@
 Coffe Bean supply chain DApp Implemented on the ethereum network
 
 ## Introduction 
-DApp developed for the 3rd project of Udacity's Blockchain Developer Nanodegree.
+DApp developed for the 3rd project of Udacity's Blockchain Developer Nanodegree:
+![alt text](./documentation/screenshot1.png)
 
 The application allows to simulate a simple supply chain related to the coffe bean processing. It allows interacting four different actors: Farmer, Distributor, Retailer and Consumers with a decentralized app based on REACT for the frontend and a series of smart contracts running on ethereum as the backend.
 
@@ -11,7 +12,7 @@ The application allows to simulate a simple supply chain related to the coffe be
 See the **UML diagrams** here: [UML Files](##-UML)
 
 This DApp is alredy **deployed on the rinkeby network**:
-- **Account owner**: https://rinkeby.etherscan.io/address/0x91f8A34a3De20f8E5A6BD42f0D0d1278B3693836
+- **Contract owner and has all roles**: https://rinkeby.etherscan.io/address/0x91f8A34a3De20f8E5A6BD42f0D0d1278B3693836
 - Smart Contract Deployments:
     - Migrations: https://rinkeby.etherscan.io/address/0x3156cf6C980a1a2ca5d3481F79516AaEAE2f97D7
     - **FarmerRole**: https://rinkeby.etherscan.io/address/0xFaD3c411910592d5a2aB9403E45405efEE4FAc32
@@ -23,11 +24,11 @@ This DApp is alredy **deployed on the rinkeby network**:
 - Total cost of deployment: 0.04772206 ETH
 
 - Transactions already registered:
-    - Harvest: https://rinkeby.etherscan.io/tx/
-    - Process: https://rinkeby.etherscan.io/tx/
-    - Pack: https://rinkeby.etherscan.io/tx/
-    - AddItem: https://rinkeby.etherscan.io/tx/
-    - PutForSale: https://rinkeby.etherscan.io/tx/
+    - Harvest: https://rinkeby.etherscan.io/tx/0x8030a76e61f40f5e3be6e9e4d8caee87f289ddcdd30045d7b9142d6b0c2d8501       (UPC-10000)
+    - Process: https://rinkeby.etherscan.io/tx/0x39fd1b1f820706049e91ffe2585e444f7a9430601be204584020b6cab7e63cd3       (UPC-10000)
+    - Pack: https://rinkeby.etherscan.io/tx/0x2009cca708727bacfeeb0eefb274cc45eeb3808afeae2af6bdf56d3aaea5407d          (UPC-10000)
+    - AddItem: https://rinkeby.etherscan.io/tx/0x504bf8db42481eae39f992d257718d20b2b2f71ad06abe7050a64bb6da12f6e5       (UPC-10000)
+    - PutForSale: https://rinkeby.etherscan.io/tx/0x1d61f757b27c5d845da23a8b5ee8f55e4be7160e762993fae95c8bfb1730bfa0    (UPC-10000)
     - Sold: https://rinkeby.etherscan.io/tx/
     - Ship: https://rinkeby.etherscan.io/tx/
     - Receive: https://rinkeby.etherscan.io/tx/
