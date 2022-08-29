@@ -1,6 +1,6 @@
 // Node modules
 // Own imports
-import { EthProvider } from "./contexts/EthContext";
+import { EthProvider } from "./context";
 // MDB Components
 import { MDBContainer} from 'mdb-react-ui-kit';
 // Components
@@ -12,10 +12,11 @@ import SupplyChain from "./components/SupplyChain/SupplyChain"
 import OtherRoles from "./components/OtherRoles/OtherRoles"
 import SearchProduct from "./components/SearchProduct/SearchProduct"
 // Statics
-
-
 // Styles
+import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 import './App.css'
+
+const state = 1;
 
 function App() {
     // Render
@@ -25,7 +26,7 @@ function App() {
             <MDBContainer className="mt-4 mb-4 mainContainer" id="App" >
                 <Instructions/>
                 <SearchProduct/>
-                <SupplyChain state={3}/>
+                { state >= 0 && <SupplyChain state={state}/> }
                 <FarmRole farm={{}} product={{}} />
                 <OtherRoles distributor={{}} retailer={{}} consumer={{}} />
             </MDBContainer>

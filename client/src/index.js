@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client';
 // Components
 import App from './App';
 // Styles
-import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 
 // Create root and render main App
 const root = ReactDOM.createRoot(document.getElementById('root'));

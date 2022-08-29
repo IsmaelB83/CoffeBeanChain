@@ -49,7 +49,7 @@ function SupplyChain(props) {
             <MDBRow>
                 {
                     steps.map((action,i) => {
-                        return (<SuplyChainStep state={state} step={action.step} onImage={action.onImage} offImage={action.offImage} name={action.name}/>)
+                        return (<SuplyChainStep key={i} state={state} step={action.step} onImage={action.onImage} offImage={action.offImage} name={action.name}/>)
                     })
                 }
             </MDBRow>

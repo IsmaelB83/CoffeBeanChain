@@ -8,6 +8,7 @@ import logo from "../../static/logo.png";
 // Styles
 import "./NavBar.css";
 
+import { useEth } from "../../context";
 
 /**
  * Application navbar component
@@ -18,7 +19,8 @@ function NavBar(props) {
     // Props destructuring
     const network = props.network || 'not connected';
     const account = props.account || '0x0000000000000000000000000000000000000000000000000000000000000000';
-
+    
+    console.log(useEth())
     return (
         <MDBNavbar light bgColor='light' fixed='top'>
             <MDBContainer>
