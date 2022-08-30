@@ -17,7 +17,7 @@ After the coffe navigates trought the rest of the supply chain (see below in thi
 
 This is how it would look like after the process is completed:
 
-![alt text](./documentation/screenshot2.jpg)
+![alt text](./documentation/screenshot2.jpeg)
 
 This DApp is alredy **deployed on the rinkeby network**:
 - **Contract owner and has all roles**: https://rinkeby.etherscan.io/address/0x91f8A34a3De20f8E5A6BD42f0D0d1278B3693836
