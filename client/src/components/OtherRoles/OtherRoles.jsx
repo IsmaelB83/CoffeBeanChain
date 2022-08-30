@@ -1,4 +1,5 @@
 // Node modules
+import { useState } from 'react';
 // Own imports
 // Components
 // MDB Components
@@ -17,11 +18,10 @@ import "./OtherRoles.css";
 function OtherRoles(props) {
 
     // Props destructuring
-    const actors = [
-        { id: props.distributorId, description: 'Distributor', image: distributorImg, actions: ['Buy', 'Ship']},
-        { id: props.retailerId, description: 'Retailer', image: retailerImg, actions: ['Receive']},
-        { id: props.consumerId, description: 'Consumer', image: consumerImg, actions: ['Purchase']}
-    ];
+    const { distributorId, retailerId, consumerId } = props;
+    const { onBuy, onShip, onReceive, onPurchase } = props;
+
+    const [payment, setPayment] = useState(0);
 
     return (
         <div className="mt-5">
@@ -29,45 +29,55 @@ function OtherRoles(props) {
                 Distributor, Retailer and Consumer
             </MDBTypography>
             <MDBRow>
-                {
-                    actors.map((actor, i) => {
-                        return <Role key={i} image={actor.image} description={actor.description} id={actor.id} actions={actor.actions} />
-                    })
-                }
+                <MDBCol>
+                    <MDBRow className='mb-4'>
+                        <img src={distributorImg} className='img-fluid shadow-4 imgRole' alt=""/>
+                    </MDBRow>
+                    <MDBRow>
+                        <form>
+                            <MDBInput className='mb-4' disabled label='Account ID' value={distributorId}/>
+                            <MDBInput className='mb-4' type='number' label='Payment' value={payment} onChange={ev=>setPayment(ev.target.value)}/>
+                        </form>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBBtnGroup shadow="0" aria-label='Actions'>
+                            <MDBBtn color='danger' rounded onClick={ev=>onBuy(payment)}>Buy </MDBBtn>
+                            <MDBBtn color='danger' rounded onClick={onShip}>Ship </MDBBtn>
+                        </MDBBtnGroup>
+                    </MDBRow>
+                </MDBCol>
+                <MDBCol>
+                    <MDBRow className='mb-4'>
+                        <img src={retailerImg} className='img-fluid shadow-4 imgRole' alt=""/>
+                    </MDBRow>
+                    <MDBRow>
+                        <form>
+                            <MDBInput className='mb-4' disabled label='Account ID' value={retailerId}/>
+                        </form>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBBtnGroup shadow="0" aria-label='Actions'>
+                            <MDBBtn color='warning' rounded onClick={onReceive}>Receive </MDBBtn>
+                        </MDBBtnGroup>
+                    </MDBRow>
+                </MDBCol>
+                <MDBCol>
+                    <MDBRow className='mb-4'>
+                        <img src={consumerImg} className='img-fluid shadow-4 imgRole' alt=""/>
+                    </MDBRow>
+                    <MDBRow>
+                        <form>
+                            <MDBInput className='mb-4' disabled label='Account ID' value={consumerId}/>
+                        </form>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBBtnGroup shadow="0" aria-label='Actions'>
+                            <MDBBtn color='info' rounded onClick={onPurchase}>Purchase </MDBBtn>
+                        </MDBBtnGroup>
+                    </MDBRow>
+                </MDBCol>
             </MDBRow>
         </div>
-    );
-}
-
-/**
- * Render the info about a specific role in the supply chain
- * @param {*} props 
- * @returns 
- */
-const Role = (props) => {
-    return (
-        <MDBCol>
-            <MDBRow>
-                <div className='mb-4'>
-                    <img src={props.image} className='img-fluid shadow-4 imgRole' alt=""/>
-                </div>
-            </MDBRow>
-            <MDBRow>
-                <form>
-                    <MDBInput className='mb-4' id={`${props.description}AccountID`} disabled label='Account ID' value={props.id}/>
-                    <MDBInput className='mb-4' id={`${props.description}Payment`} type='number' label={`${props.description==='Distributor'?'Payment ETH':''}`} disabled/>
-                </form>
-            </MDBRow>
-            <MDBRow>
-                <MDBBtnGroup shadow="0" aria-label='Actions'>
-                    {
-                        props.actions.map((action, i) => {
-                            return (<MDBBtn key={i} color="danger" rounded>{action} </MDBBtn>)
-                        })
-                    }
-                </MDBBtnGroup>
-            </MDBRow>
-        </MDBCol>
     );
 }
 

@@ -26,7 +26,6 @@ export async function connect () {
         try {
             address = artifact.networks[networkId].address;
             contract = new web3.eth.Contract(abi, address);
-            console.log(contract.methods)
         } catch (err) {
             alert(`Contract not found on network ${networkIdText(networkId)}`)
         }
@@ -81,6 +80,40 @@ export async function connect () {
 export async function putForSale (upc, price) {
     return await connection.contract.methods.putForSale(upc, price).send({from: connection.account});
 }
+
+/**
+ * 
+ * @returns 
+ */
+ export async function buyItem (upc, value) {
+    console.log(value)
+    return await connection.contract.methods.buyItem(upc).send({from: connection.account, value: value});
+}
+
+/**
+ * 
+ * @returns 
+ */
+ export async function shipItem (upc) {
+    return await connection.contract.methods.shipItem(upc).send({from: connection.account});
+}
+
+/**
+ * 
+ * @returns 
+ */
+ export async function receiveItem (upc) {
+    return await connection.contract.methods.receiveItem(upc).send({from: connection.account});
+}
+
+/**
+ * 
+ * @returns 
+ */
+ export async function purchaseItem (upc) {
+    return await connection.contract.methods.purchaseItem(upc).send({from: connection.account});
+}
+
 
 /**
  * Fecth product information

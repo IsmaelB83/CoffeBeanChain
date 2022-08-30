@@ -17,6 +17,7 @@ import './FarmRole.css';
 function FarmRole(props) {
     
     // Farm information form
+    const [readOnly, setReadOnly] = useState(false);
     const [farmForm, setFarmForm] = useState({
         id: '',
         name: '',
@@ -38,20 +39,23 @@ function FarmRole(props) {
 
     // Reload props
     useEffect(() => {
-        setFarmForm({
-            id: props.farmId,
-            name: props.farmName,
-            info: props.farmInfo,
-            latitude: props.farmLatitude,
-            longitude: props.farmLongitude
-        });
-        setProductForm ({
-            ownerId: props.ownerId,
-            notes: props.productNotes,
-            upc: props.productUpc,
-            price: props.productPrice,
-            sku: props.productSku
-        })
+        if (props.productUpc) {
+            setReadOnly(true);
+            setFarmForm({
+                id: props.farmId,
+                name: props.farmName,
+                info: props.farmInfo,
+                latitude: props.farmLatitude,
+                longitude: props.farmLongitude
+            });
+            setProductForm ({
+                ownerId: props.ownerId,
+                notes: props.productNotes,
+                upc: props.productUpc,
+                price: props.productPrice,
+                sku: props.productSku
+            })    
+        }
     }, [props])
 
     // Methods
@@ -76,20 +80,20 @@ function FarmRole(props) {
             <MDBRow>
                 <MDBCol>
                     <form>
-                        <MDBInput className='mb-4' type='text' name='id' disabled label='Farmer ID' value={farmForm.id} onChange={onChangeFarmForm}/>
-                        <MDBInput className='mb-4' type='text' name='name' label='Farm Name' value={farmForm.name} onChange={onChangeFarmForm}/>
-                        <MDBInput className='mb-4' type='text' name='info' label='Farm Information' value={farmForm.info} onChange={onChangeFarmForm}/>
-                        <MDBInput className='mb-4' type='number' name='latitude' label='Farm Latitude' value={farmForm.latitude} onChange={onChangeFarmForm}/>
-                        <MDBInput className='mb-4' type='number'name='longitude' label='Farm Longitude' value={farmForm.longitude} onChange={onChangeFarmForm}/>
+                        <MDBInput className='mb-4' type='text' name='id' disabled label='Farmer ID' value={farmForm.id} onChange={onChangeFarmForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='text' name='name' label='Farm Name' value={farmForm.name} onChange={onChangeFarmForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='text' name='info' label='Farm Information' value={farmForm.info} onChange={onChangeFarmForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='number' name='latitude' label='Farm Latitude' value={farmForm.latitude} onChange={onChangeFarmForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='number'name='longitude' label='Farm Longitude' value={farmForm.longitude} onChange={onChangeFarmForm} readOnly={readOnly} />
                     </form>
                 </MDBCol>
                 <MDBCol>
                     <form>
-                        <MDBInput className='mb-4' type='text' name='ownerId' disabled label='Product Owner ID' value={productForm.ownerId} onChange={onChangeProductForm}/>
-                        <MDBInput className='mb-4' type='text' name='notes' label='Product notes' value={productForm.notes} onChange={onChangeProductForm}/>
-                        <MDBInput className='mb-4' type='number' name='upc' label='Unified Product Code (UPC)' value={productForm.upc} onChange={onChangeProductForm}/>
-                        <MDBInput className='mb-4' type='number' name='sku' label='Stock keeping unit (SKU)' value={productForm.sku} onChange={onChangeProductForm}/>
-                        <MDBInput className='mb-4' type='number' name='price' label='Price' value={productForm.price} onChange={onChangeProductForm}/>
+                        <MDBInput className='mb-4' type='text' name='ownerId' disabled label='Product Owner ID' value={productForm.ownerId} onChange={onChangeProductForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='text' name='notes' label='Product notes' value={productForm.notes} onChange={onChangeProductForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='number' name='upc' label='Unified Product Code (UPC)' value={productForm.upc} onChange={onChangeProductForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='number' name='sku' label='Stock keeping unit (SKU)' value={productForm.sku} onChange={onChangeProductForm} readOnly={readOnly} />
+                        <MDBInput className='mb-4' type='number' name='price' label='Price' value={productForm.price} onChange={onChangeProductForm} readOnly={readOnly} />
                     </form>
                 </MDBCol>
             </MDBRow>

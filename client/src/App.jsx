@@ -1,7 +1,7 @@
 // Node modules
 import React, { useEffect, useState } from "react";
 // Own imports
-import { connect, harvest, process, pack, addItem, putForSale, fetchItem } from './web3/Web3Integration';
+import { connect, harvest, process, pack, addItem, putForSale, fetchItem, buyItem, shipItem, receiveItem, purchaseItem } from './web3/index';
 // MDB Components
 import { MDBContainer} from 'mdb-react-ui-kit';
 // Components
@@ -97,6 +97,26 @@ function App() {
         putForSale(upc, price).then( result => console.log(result))
     }
 
+    // Click BUY sale
+    const onBuyHandler = (value) => {
+        buyItem(data.productUpc, parseInt(value)).then( result => console.log(result))
+    }
+
+    // Click BUY sale
+    const onShipHandler = () => {
+        shipItem(data.productUpc).then( result => console.log(result))
+    }
+       
+    // Click BUY sale
+    const onReceiveHandler = () => {
+        receiveItem(data.productUpc).then( result => console.log(result))
+    }
+
+    // Click BUY sale
+    const onPucharseHandler = () => {
+        purchaseItem(data.productUpc).then( result => console.log(result))
+    }
+   
     // Render
     return (
         <React.Fragment>
@@ -108,7 +128,8 @@ function App() {
                 <FarmRole   farmId={data.farmId} farmName={data.farmName} farmInfo={data.farmInfo} farmLatitude={data.farmLatitude} farmLongitude={data.farmLongitude}
                             ownerId={data.ownerId} productNotes={data.productNotes} productUpc={data.productUpc} productSku={data.productSku} productPrice={data.productPrice}
                             onHarvest={onHarvestHandler} onProcess={onProcessHandler} onPack={onPackHandler} onAddItem={onAddItemHandler} onPutForSale={onPutForSaleHandler}/>
-                <OtherRoles distributorId={data.distributorId} retailerId={data.retailerId} consumerId={data.consumerId} />
+                <OtherRoles distributorId={data.distributorId} retailerId={data.retailerId} consumerId={data.consumerId}
+                            onBuy={onBuyHandler} onShip={onShipHandler} onReceive={onReceiveHandler} onPurchase={onPucharseHandler}/>
             </MDBContainer>
             <Footer/>
         </React.Fragment>
