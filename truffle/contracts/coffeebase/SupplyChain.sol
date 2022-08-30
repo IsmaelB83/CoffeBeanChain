@@ -71,6 +71,12 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
         upc = 1;
     }
 
+    // Define a modifier to verify ownership of the product (after harvest only productowner can change the product status)
+    modifier verifyCaller(uint _upc) {
+        require(msg.sender == items[_upc].ownerID); 
+        _;
+    }
+
     // Define a modifier that checks if the paid amount is sufficient to cover the price
     modifier paidEnough(uint _price) { 
         require(msg.value >= _price); 
@@ -152,7 +158,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
     }
 
     // Define a function 'processtItem' that allows a farmer to mark an item 'Processed'
-    function processItem(uint _upc) public onlyFarmer harvested(_upc) {
+    function processItem(uint _upc) public onlyFarmer verifyCaller(_upc) harvested(_upc) {
         // Update the appropriate fields
         items[_upc].itemState = State.Processed;
         // Emit the appropriate event
@@ -160,7 +166,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
     }
 
     // Define a function 'packItem' that allows a farmer to mark an item 'Packed'
-    function packItem(uint _upc) public onlyFarmer processed(_upc) {
+    function packItem(uint _upc) public onlyFarmer verifyCaller(_upc) processed(_upc) {
         // Update the appropriate fields
         items[_upc].itemState = State.Packed;
         // Emit the appropriate event
@@ -168,7 +174,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
     }
 
     // Define a function 'addItem' that allows a farmer to add stock to a 'PackedItem' that has NOT already being sent
-    function addItem(uint _upc, uint _units) public onlyFarmer packed(_upc){
+    function addItem(uint _upc, uint _units) public onlyFarmer verifyCaller(_upc) packed(_upc){
         // Update the stock of this package
         items[_upc].sku += _units;
         // Emit the appropriate event
@@ -176,7 +182,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
     }
 
     // Define a function 'putForSale' that allows a farmer to mark an item 'ForSale'
-    function putForSale(uint _upc, uint _price) public onlyFarmer packed(_upc){
+    function putForSale(uint _upc, uint _price) public onlyFarmer verifyCaller(_upc) packed(_upc){
         // Update the appropriate fields
         items[_upc].itemState = State.ForSale;
         items[_upc].productPrice = _price;
@@ -201,7 +207,7 @@ contract SupplyChain is DistributorRole, ConsumerRole, RetailerRole, FarmerRole,
 
     // Define a function 'shipItem' that allows the distributor to mark an item 'Shipped'
     // Use the above modifers to check if the item is sold
-    function shipItem(uint _upc) public onlyDistributor sold(_upc) {
+    function shipItem(uint _upc) public onlyDistributor verifyCaller(_upc) sold(_upc) {
         // Update the appropriate fields
         items[_upc].itemState = State.Shipped;
         // Emit the appropriate event
